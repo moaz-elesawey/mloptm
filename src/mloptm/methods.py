@@ -295,9 +295,9 @@ class BiSection(Method):
             center = (a0 + b0) / 2
 
             if self.df(center) > 0:
-                b0 = center
-            else:
                 a0 = center
+            else:
+                b0 = center
 
             self._optm_steps.append(center)
             self.data.append( [a0, b0, center, self.df(center)] )
