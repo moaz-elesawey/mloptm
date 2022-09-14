@@ -17,14 +17,26 @@ setup(
         author_email='mohammedmiaz3141@gmail.com',
         classifiers=[
             'Development Status :: 5 - Production/Stable',
-            'License :: OSI Approved :: MIT License',
+
+            'Intended Audience :: Developers',
+            'Topic :: Software Development :: Build Tools',
+
             'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'Programming Language :: Python :: 3.8',
+            'Programming Language :: Python :: 3.9',
+            'Programming Language :: Python :: 3 :: Only',
+            'License :: OSI Approved :: MIT License',
         ],
         keywords='python, python3, ml, optm, mloptm',
         package_dir={'': 'src'},
         packages=find_packages(where='src'),
         python_requires='>=3.7, <4',
+        install_requires=["numpy", "matplotlib", "tabulate", "Pillow"],
         project_urls={
         'Source': 'https://github.com/moaz-elesawey/mloptm',
     },
 )
+
+
