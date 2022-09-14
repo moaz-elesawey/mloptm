@@ -1,4 +1,4 @@
-from .methods import (
+from mloptm.methods import (
     Golden,
     BiSection,
     Newton,

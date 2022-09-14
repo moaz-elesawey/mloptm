@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
-from optm.consts import RO
-from optm.exceptions import NotOptimizedError
+from mloptm.consts import RO
+from mloptm.exceptions import NotOptimizedError
 
 
 class Method:
