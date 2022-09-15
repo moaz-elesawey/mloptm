@@ -139,7 +139,7 @@ class Golden(Method):
 
         Examples
         --------
-        >>> from optm.methods import Golden
+        >>> from mloptm.methods import Golden
         >>> def f(x):
         ...     return x**4 - 14*x**3 + 60*x**2 - 70*x
 
@@ -237,7 +237,7 @@ class BiSection(Method):
 
         Examples
         --------
-        >>> from optm.methods import BiSection
+        >>> from mloptm.methods import BiSection
         >>> def f(x):
         ...     return x**4 - 14*x**3 + 60*x**2 - 70*x
 
@@ -335,7 +335,7 @@ class Newton(Method):
 
         Examples
         --------
-        >>> from optm.methods import Newton
+        >>> from mloptm.methods import Newton
         >>> def f(x):
         ...     return x**4 - 14*x**3 + 60*x**2 - 70*x
 
@@ -426,7 +426,7 @@ class Secant(Method):
 
         Examples
         --------
-        >>> from optm.methods import Secant
+        >>> from mloptm.methods import Secant
         >>> def f(x):
         ...     return x**4 - 14*x**3 + 60*x**2 - 70*x
 
