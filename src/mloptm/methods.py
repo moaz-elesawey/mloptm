@@ -395,7 +395,7 @@ class Newton(Method):
             xk = x0 - ( self.df(x0)/self.ddf(x0) )
             self._optm_steps.append(xk)
             self.data.append([x0, xk, self.df(xk), self.ddf(xk)])
-            if self.df(xk) < eps: break
+            if abs(xk - x0) < eps: break
             x0 = xk
             
             # check for convergnace
@@ -488,7 +488,7 @@ class Secant(Method):
             xk = (self.df(x1)*x0 - self.df(x0)*x1) / (self.df(x1) - self.df(x0))
             self._optm_steps.append(xk)
             self.data.append([x0, xk, self.f(xk), self.df(xk)])
-            if xk - x1 < eps: break
+            if abs(xk - x1) < eps: break
             x0 = x1
             x1 = xk
 
