@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
 from mloptm.consts import RO
-from mloptm.exceptions import NotOptimizedError
+from mloptm.exceptions import NotOptimizedError, NotConverganceError
 
 
 class Method:
@@ -332,6 +332,7 @@ class Newton(Method):
         Raises
         ------
          - NotOptimizedError
+         - NotConverganceError
 
         Examples
         --------
@@ -369,6 +370,7 @@ class Newton(Method):
         self.ddf = ddf
         self.a = a
         self.kw = kw
+        self.__max_iters = int(10e5)
 
     def Minimize(self, x0, eps=10**-5):
         """
@@ -387,13 +389,19 @@ class Newton(Method):
         self._optm_steps = []
         self.data = []
 
+        i = 0
+
         while True:
             xk = x0 - ( self.df(x0)/self.ddf(x0) )
             self._optm_steps.append(xk)
             self.data.append([x0, xk, self.df(xk), self.ddf(xk)])
-            if xk - x0 < eps: break
+            if self.df(xk) < eps: break
             x0 = xk
-
+            
+            # check for convergnace
+            i += 1
+            if i > self.__max_iters:
+                raise NotConverganceError("Newton method did not converge. try different method")
 
         self._optimized = True
         self._minima = xk
