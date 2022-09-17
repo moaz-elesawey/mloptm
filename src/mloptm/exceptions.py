@@ -3,3 +3,10 @@ class NotOptimizedError(Exception):
         super().__init__(message)
 
         self.errors = errors
+
+
+class NotConverganceError(Exception):
+    def __init__(self, message, errors=None):
+        super().__init__(message)
+
+        self.errors = errors
