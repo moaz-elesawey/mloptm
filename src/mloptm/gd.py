@@ -96,7 +96,7 @@ class GradientMethod:
                 markerfacecolor="w", markeredgecolor="k", markersize=7, linewidth=1.5)
         ax.plot(self.x_steps[-1], self.y_steps[-1], marker="o", markerfacecolor="r",
                 markeredgecolor="k", markersize=15, alpha=0.4)
-        ax.set_title("Minimization using {type(self).__name__}")
+        ax.set_title(f"Minimization using {type(self).__name__}")
         ax.set_xlabel(self.symbols[0])
         ax.set_ylabel(self.symbols[1])
         cbar = plt.colorbar(cs)
