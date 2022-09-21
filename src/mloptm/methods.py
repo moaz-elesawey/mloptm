@@ -208,7 +208,7 @@ class Golden(Method):
         self._optimized = True
         self._minima = minima_avg
 
-        return minima_avg, (a0, b0)
+        return minima_avg
 
     def PrintOptimizationSteps(self):
         if self._optimized is None:
@@ -506,5 +506,6 @@ class Secant(Method):
         print("Found Local Minima at x -> [{:.6f}]".format(self.minima))
         print("---------------------------------")
         print(tabulate(self.data, headers=headers))
+
 
 
