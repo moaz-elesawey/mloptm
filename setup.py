@@ -33,7 +33,7 @@ setup(
         package_dir={'': 'src'},
         packages=find_packages(where='src'),
         python_requires='>=3.7, <4',
-        install_requires=["numpy", "matplotlib", "tabulate", "Pillow"],
+        install_requires=["numpy", "sympy", "matplotlib", "tabulate", "Pillow"],
         project_urls={
         'Source': 'https://github.com/moaz-elesawey/mloptm',
     },
