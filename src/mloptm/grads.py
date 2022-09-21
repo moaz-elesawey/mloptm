@@ -1,6 +1,7 @@
 import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt
+from matplotlib import cm
 
 from mloptm.utils import EvalExpr
 from mloptm.methods import Golden
@@ -44,6 +45,7 @@ class GradientMethod:
         ax.set_title(f"Error Over Iterations using {type(self).__name__}", fontsize=15)
         ax.set_xlabel("Iterations", fontsize=15)
         ax.set_ylabel(r"$ \frac{|X^{k+1} - X^k|}{\max(1, |X^k|)} $", fontsize=16)
+        ax.set_xticks(iterations)
 
         plt.show()
 
@@ -52,7 +54,7 @@ class GradientMethod:
 
         return fig
 
-    def PlotContour(self, xdomain, ydomain, **kw):
+    def PlotContour(self, xdomain, ydomain, contours=60, alpha=1.0, **kw):
         """
         Generate a Contour Plot of the Function and Plot the Steps on it.
 
@@ -84,14 +86,14 @@ class GradientMethod:
 
         xmid, ymid = self.x0
 
-        xs = np.linspace( *xdomain, 100 )
-        ys = np.linspace( *ydomain, 100 )
+        xs = np.linspace( *xdomain, 500 )
+        ys = np.linspace( *ydomain, 500 )
 
         xx, yy = np.meshgrid(xs, ys)
         zz = self.expr_lambda([xx, yy])
 
         fig, ax = plt.subplots(nrows=1, figsize=(9, 7))
-        cs = ax.contourf(xx, yy, zz, cmap="viridis", alpha=0.7, levels=14)
+        cs = ax.contour(xx, yy, zz, cmap="viridis", alpha=alpha, levels=contours)
         ax.plot(self.x_steps, self.y_steps, marker="o", color="k",
                 markerfacecolor="w", markeredgecolor="k", markersize=7, linewidth=1.5)
         ax.plot(self.x_steps[-1], self.y_steps[-1], marker="o", markerfacecolor="r",
@@ -110,7 +112,7 @@ class GradientMethod:
 
         return fig
 
-    def Plot3D(self, xdomain, ydomain, **kw):
+    def Plot3D(self, xdomain, ydomain, contours=60, alpha=0.2, **kw):
         """
         Generate a 3D Plot of the Function and Plot the Steps on it.
 
@@ -141,23 +143,32 @@ class GradientMethod:
 
         xmid, ymid = self.x0
 
-        xs = np.linspace( *xdomain, 100 )
-        ys = np.linspace( *ydomain, 100 )
+        xs = np.linspace( *xdomain, 200 )
+        ys = np.linspace( *ydomain, 200 )
 
         xx, yy = np.meshgrid(xs, ys)
         zz = self.expr_lambda([xx, yy])
 
+        # Normalize to [0,1]
+        norm = plt.Normalize(zz.min(), zz.max())
+        colors = cm.viridis(norm(zz))
+        rcount, ccount, _ = colors.shape
+
         fig = plt.figure(figsize=(9, 7))
         ax = fig.add_subplot(projection="3d")
 
-        ax.plot_surface(xx, yy, zz, cstride=6, rstride=6, cmap="coolwarm", alpha=0.5)
-        ax.contour(xx, yy, zz, zdir='z', offset=np.min(zz), cmap="coolwarm")
+        surf = ax.plot_surface(xx, yy, zz, cstride=3, rstride=3, cmap="coolwarm", alpha=alpha)
+        
+        ax.contour(xx, yy, zz, zdir='z', offset=np.min(zz), alpha=alpha, levels=contours, cmap="coolwarm")
 
-        ax.plot(self.x_steps, self.y_steps, self.expr_lambda([self.x_steps, self.y_steps]), marker="o",
-                color="k", markerfacecolor="w", markeredgecolor="k", markersize=7, linewidth=1.5)
+        ax.plot(self.x_steps, self.y_steps, np.min(zz), marker="o", color="k",
+                markerfacecolor="w", markeredgecolor="k", markersize=7, linewidth=1.5)
 
         ax.plot3D(self.x_steps[-1], self.y_steps[-1], self.expr_lambda([self.x_steps[-1], self.y_steps[-1]]), 
                 marker="o", markerfacecolor="r", markeredgecolor="k", markersize=15, alpha=0.4)
+
+        ax.plot(self.x_steps, self.y_steps, self.expr_lambda([self.x_steps, self.y_steps]), marker="o",
+                color="k", markerfacecolor="w", markeredgecolor="k", markersize=7, linewidth=1.5)
 
         ax.set_title(f"Minimization using {type(self).__name__}")
         ax.set_xlabel(self.symbols[0])
