@@ -196,7 +196,7 @@ class SteepestDescent(GradientMethod):
 
     Examples
     --------
-    >>> from mloptm.gd import SteepestDescent
+    >>> from mloptm.grads import SteepestDescent
 
     >>> f = "cos(x^2 - 3*y) + sin(x^2 + y^2)"
     >>> steepest = SteepestDescent(f=f, variables=("x", "y"))
@@ -220,7 +220,7 @@ class SteepestDescent(GradientMethod):
     >>> steepest.Plot3D(xdomain=(-3, 3), ydomain=(-3, 3), save=True, filename="3d.jpg")
 
 
-    >>> from mloptm.gd import SteepestDescent
+    >>> from mloptm.grads import SteepestDescent
 
     >>> f = "x1^2 + x2^2 + x3^2 + x4^2"
     >>> steepest = SteepestDescent(f=f, variables=("x1", "x2", "x3", "x4"))
@@ -357,7 +357,7 @@ class NewtonND(GradientMethod):
 
     Examples
     --------
-    >>> from mloptm.gd import NewtonND
+    >>> from mloptm.grads import NewtonND
 
     >>> f = "x^2 + y^2 + z^2"
     >>> nm = NewtonND(f=f, variables=("x", "y"))
