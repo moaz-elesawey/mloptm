@@ -34,9 +34,8 @@ def EvalExpr(f, variables):
     try:
         expr = eval_expr(f, local_dict=local_dict, global_dict=NUMPY_FUNCTIONS)
     except Exception as e:
-        print(str(e))
-        # raise ParsingExpressionError("error when parsing your expression,"\
-        #         "please check the expression of the variables your used.")
+        raise ParsingExpressionError("error when parsing your expression,"\
+                "please check the expression or the variables you are using.")
     
     return expr, symnols
 
