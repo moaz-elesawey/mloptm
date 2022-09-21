@@ -508,4 +508,3 @@ class Secant(Method):
         print(tabulate(self.data, headers=headers))
 
 
-
