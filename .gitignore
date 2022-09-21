@@ -2,4 +2,7 @@ dist/
 build/
 src/mloptm.egg-info/
 src/mloptm/__pycache__/
-/dev/
+dev/
+src/mloptm/*.jpg
+src/mloptm/test.py
+
