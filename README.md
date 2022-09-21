@@ -1,4 +1,4 @@
-# Optimization Methods Dev Branch
+# Optimization Methods
 Methods Discussed
  - Golden Section Search Method
  - BiSection Method
