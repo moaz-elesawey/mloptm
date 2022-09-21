@@ -41,7 +41,7 @@ class GradientMethod:
         fig, ax = plt.subplots(nrows=1, figsize=(10, 6))
         ax.plot(iterations, self.errors, marker="o", color="k",
                 markerfacecolor="w", markeredgecolor="k", markersize=8, linewidth=2.)
-        ax.set_title("Error Over Iterations", fontsize=15)
+        ax.set_title(f"Error Over Iterations using {type(self).__name__}", fontsize=15)
         ax.set_xlabel("Iterations", fontsize=15)
         ax.set_ylabel(r"$ \frac{|X^{k+1} - X^k|}{\max(1, |X^k|)} $", fontsize=16)
 
@@ -96,7 +96,7 @@ class GradientMethod:
                 markerfacecolor="w", markeredgecolor="k", markersize=7, linewidth=1.5)
         ax.plot(self.x_steps[-1], self.y_steps[-1], marker="o", markerfacecolor="r",
                 markeredgecolor="k", markersize=15, alpha=0.4)
-        ax.set_title("Steepest Descent Minimization")
+        ax.set_title("Minimization using {type(self).__name__}")
         ax.set_xlabel(self.symbols[0])
         ax.set_ylabel(self.symbols[1])
         cbar = plt.colorbar(cs)
@@ -159,7 +159,7 @@ class GradientMethod:
         ax.plot3D(self.x_steps[-1], self.y_steps[-1], self.expr_lambda([self.x_steps[-1], self.y_steps[-1]]), 
                 marker="o", markerfacecolor="r", markeredgecolor="k", markersize=15, alpha=0.4)
 
-        ax.set_title("Steepest Descent Minimization")
+        ax.set_title(f"Minimization using {type(self).__name__}")
         ax.set_xlabel(self.symbols[0])
         ax.set_ylabel(self.symbols[1])
         ax.set_zlabel(f"f({self.symbols[0]},{self.symbols[1]})")
