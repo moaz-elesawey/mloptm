@@ -3,6 +3,5 @@ build/
 src/mloptm.egg-info/
 src/mloptm/__pycache__/
 dev/
-src/mloptm/*.jpg
-src/mloptm/test.py
+src/test.py
 
