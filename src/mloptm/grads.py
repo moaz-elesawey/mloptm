@@ -1,7 +1,6 @@
 import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt
-from matplotlib import cm
 
 from mloptm.utils import EvalExpr
 from mloptm.methods import Golden
@@ -149,11 +148,6 @@ class GradientMethod:
         xx, yy = np.meshgrid(xs, ys)
         zz = self.expr_lambda([xx, yy])
 
-        # Normalize to [0,1]
-        norm = plt.Normalize(zz.min(), zz.max())
-        colors = cm.viridis(norm(zz))
-        rcount, ccount, _ = colors.shape
-
         fig = plt.figure(figsize=(9, 7))
         ax = fig.add_subplot(projection="3d")
 
@@ -247,7 +241,7 @@ class SteepestDescent(GradientMethod):
     """
 
     def __init__(self, f, variables, maxiters=50):
-        self.f = f.replace("^", "**")
+        self.f = f
         self.variables = variables
         self.maxiters = maxiters
 
@@ -387,7 +381,7 @@ class NewtonND(GradientMethod):
     """
     def __init__(self, f, variables, maxiters=50):
 
-        self.f = f.replace("^", "**")
+        self.f = f
         self.variables = variables
         self.maxiters = maxiters
 

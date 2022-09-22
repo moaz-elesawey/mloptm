@@ -22,6 +22,8 @@ def EvalExpr(f, variables):
     ------
      - ParsingExpressionError : 
     """
+
+    f = f.replace("^", "**")
     
     NUMPY_FUNCTIONS = {a: getattr(sp, a) for a in dir(sp)}
 
