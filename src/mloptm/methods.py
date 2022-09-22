@@ -442,7 +442,7 @@ class Secant(Method):
         ...     return 4*x**3 - 14*3*x**2 + 120*x - 70
 
         >>> op = Secant(f, df)
-        >>> minima = op.Minimize(a0=0, b0=2, epochs=10)
+        >>> minima = op.Minimize(x0=4, x1=3, eps=0.0001)
         >>> op.PrintOptimizationSteps()
 
         Using Newton Optimization Method
@@ -502,7 +502,7 @@ class Secant(Method):
             raise NotOptimizedError("function did not optimized yet.")
 
         headers = ["xk", "xk+1", "f(xk+1)", "f'(xk+1)"]
-        print("\nUsing Newton Optimization Method")
+        print("\nUsing Secant Optimization Method")
         print("Found Local Minima at x -> [{:.6f}]".format(self.minima))
         print("---------------------------------")
         print(tabulate(self.data, headers=headers))
