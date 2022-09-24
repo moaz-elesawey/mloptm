@@ -278,7 +278,7 @@ class SteepestDescent(GradientMethod):
         alpha = sp.Symbol("alpha", positive=True)
         
         ## compute the gradient and convert to matrix
-        grad = sp.Matrix( [self.expr.diff(v) for v in self.symbols] ).n()
+        grad = sp.Matrix( [self.expr.diff(v).n() for v in self.symbols] ).n()
         
         ## convert initial point to Matrix
         X0 = sp.Matrix(x0)
@@ -290,7 +290,7 @@ class SteepestDescent(GradientMethod):
         ## create a lambda function of the alpha expr to minimze it.
         alpha_lambda = sp.lambdify([alpha], self.expr.subs(
                                     [ (var, val) for var, val in 
-                                     zip(self.symbols, alpha_evaluated) ]))
+                                     zip(self.symbols, alpha_evaluated) ]).n())
 
         ## get the mimimum value of the alpha to get the larget step to take.
         minimum_alpha = Golden(alpha_lambda).Minimize(a0=-1, b0=1, eps=1e-6)
@@ -299,7 +299,7 @@ class SteepestDescent(GradientMethod):
         xk = (X0 - minimum_alpha * grad).subs([ (var, val) for var, val in zip(self.symbols, X0) ]).n()
 
         ## calculate the error between the last and next values.
-        err = (xk - X0).norm().n() / np.maximum(1, X0.norm().n())
+        err = ((xk - X0).norm().n() / np.maximum(1, X0.norm().n())).n()
 
         ## append the results of both err and step to errors and steps.
         self.errors.append(err)
@@ -411,17 +411,17 @@ class NewtonND(GradientMethod):
         self.x0 = x0
 
         ## convert x0 to sympy matrix
-        X0 = sp.Matrix(x0)
+        X0 = sp.Matrix(x0).n()
         self.steps.append(np.array(X0.T.tolist()[0], dtype=np.float64))
 
         ## compute the gradient and convert to matrix
         grad = sp.Matrix( [self.expr.diff(v) for v in self.symbols] ).n()
-        grad_num = grad.subs([(var, val) for var, val in zip(self.symbols, x0)])
+        grad_num = grad.subs([(var, val) for var, val in zip(self.symbols, x0)]).n()
 
         ## create the hessain matrix
         hessian = self._HessianMatrix(grad, self.symbols)
-        hessian_num = hessian.subs( [(var, val) for var, val in zip(self.symbols, x0)] )
-        hessian_inv = hessian_num.inv()
+        hessian_num = hessian.subs( [(var, val) for var, val in zip(self.symbols, x0)] ).n()
+        hessian_inv = hessian_num.inv().n()
 
         xk = X0 - hessian_inv * grad_num
 
@@ -476,7 +476,7 @@ class NewtonND(GradientMethod):
                 hessian_row.append(self.expr.diff(v1, v2).n())
             hessian.append(hessian_row)
 
-        hessian = sp.Matrix(hessian)
+        hessian = sp.Matrix(hessian).n()
 
         return hessian
 
