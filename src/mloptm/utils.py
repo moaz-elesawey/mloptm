@@ -27,9 +27,12 @@ def EvalExpr(f, variables):
     
     NUMPY_FUNCTIONS = {a: getattr(sp, a) for a in dir(sp)}
 
-    symnols = sp.symbols(" ".join(variables))
+    symbols = sp.symbols(" ".join(variables))
+
+    if not isinstance(symbols, (list, tuple)):
+        symbols = [symbols]
     
-    local_dict = {key: var for key, var in zip(variables, symnols)}
+    local_dict = {key: var for key, var in zip(variables, symbols)}
     
     expr = None
     
@@ -39,5 +42,5 @@ def EvalExpr(f, variables):
         raise ParsingExpressionError("error when parsing your expression,"\
                 "please check the expression or the variables you are using.")
     
-    return expr, symnols
+    return expr, symbols
 
