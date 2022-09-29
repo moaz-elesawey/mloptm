@@ -427,10 +427,8 @@ class NewtonND(GradientMethod):
 
         for _ in range(self.maxiters):
 
-            grad = sp.Matrix( [self.expr.diff(v) for v in self.symbols] ).n()
             grad_num = grad.subs([(var, val) for var, val in zip(self.symbols, X0)]).n()
 
-            hessian = self._HessianMatrix(grad, self.symbols).n()
             hessian_num = hessian.subs( [(var, val) for var, val in zip(self.symbols, X0)] ).n()
             hessian_inv = hessian_num.inv().n()
 
